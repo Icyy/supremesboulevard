@@ -12,8 +12,8 @@ import {
   TextField,
   DialogActions,
 } from "@mui/material";
-import img1 from "../assets/img1.jpeg"; // Import the local image
-import img2 from '../assets/im2.jpeg'
+import img1 from "../assets/bgImg.png"; // Import the local image
+import img2 from "../assets/im2.jpeg";
 import img3 from "../assets/img3.jpg";
 import bhk2 from "../assets/2bhk.png";
 import bhk3 from "../assets/3bhk.jpg";
@@ -53,6 +53,9 @@ const overlayStyles = {
 const Banner = () => {
   const [open, setOpen] = useState(false);
   const [selectedApartment, setSelectedApartment] = useState("");
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleClickOpen = (apartment) => {
     setSelectedApartment(apartment);
@@ -60,7 +63,7 @@ const Banner = () => {
   };
 
   const handleButtonClick = () => {
-    setSelectedApartment('Booking Inquiry'); // Or any other placeholder
+    setSelectedApartment("Booking Inquiry"); // Or any other placeholder
     setOpen(true);
   };
 
@@ -166,13 +169,13 @@ const Banner = () => {
           <Grid item xs={12} md={4}>
             <Card
               sx={{ ...cardStyles, backgroundImage: `url(${bhk3l})` }}
-              onClick={() => handleClickOpen("2BHK - 758 + 758 sq ft")}
+              onClick={() => handleClickOpen("2BHK - 727.75 + 30.24 sq ft")}
               className="card"
             >
               <Box sx={overlayStyles} />
               <CardContent sx={{ position: "relative", zIndex: 2 }}>
                 <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  2BHK - 758 + 758 sq ft
+                  2BHK - 727.75 + 30.24 sq ft
                 </Typography>
               </CardContent>
             </Card>
@@ -180,13 +183,13 @@ const Banner = () => {
           <Grid item xs={12} md={4}>
             <Card
               sx={{ ...cardStyles, backgroundImage: `url(${bhk3})` }}
-              onClick={() => handleClickOpen("Smart 3BHK - 938 + 938 sq ft")}
+              onClick={() => handleClickOpen("Smart 3BHK - 881.78 + 56.18 sq ft")}
               className="card"
             >
               <Box sx={overlayStyles} />
               <CardContent sx={{ position: "relative", zIndex: 2 }}>
                 <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Smart 3BHK - 938 + 938 sq ft
+                  Smart 3BHK - 881.78 + 56.18 sq ft
                 </Typography>
               </CardContent>
             </Card>
@@ -194,13 +197,13 @@ const Banner = () => {
           <Grid item xs={12} md={4}>
             <Card
               sx={{ ...cardStyles, backgroundImage: `url(${bhk2})` }}
-              onClick={() => handleClickOpen("Large 3BHK - 1065 + 1065 sq ft")}
+              onClick={() => handleClickOpen("Lux 3BHK - 1004.17 + 61.24 sq ft")}
               className="card"
             >
               <Box sx={overlayStyles} />
               <CardContent sx={{ position: "relative", zIndex: 2 }}>
                 <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Large 3BHK - 1065 + 1065 sq ft
+                  Lux 3BHK - 1004.17 + 61.24 sq ft
                 </Typography>
               </CardContent>
             </Card>
@@ -218,8 +221,8 @@ const Banner = () => {
             textTransform: "none", // Keeps the button text case as is
             mb: 2,
             color: "black",
-            fontWeight:'bold',
-            borderRadius:'0px'
+            fontWeight: "bold",
+            borderRadius: "0px",
           }}
           onClick={handleButtonClick} // Opens popup on click
         >
@@ -246,10 +249,20 @@ const Banner = () => {
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <TextField
+              label="Name"
+              variant="outlined"
+              fullWidth
+              sx={{ mb: 2 }}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <TextField
               autoFocus
               margin="dense"
               label="Email Address"
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
               fullWidth
               required
             />
@@ -258,6 +271,7 @@ const Banner = () => {
               label="Mobile Number"
               type="tel"
               fullWidth
+              onChange={(e) => setPhone(e.target.value)}
               required
             />
             <DialogActions>

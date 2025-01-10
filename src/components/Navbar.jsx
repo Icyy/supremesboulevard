@@ -4,12 +4,14 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DescriptionIcon from '@mui/icons-material/Description';
+import CallIcon from '@mui/icons-material/Call';
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -24,13 +26,19 @@ const Navbar = () => {
   return (
     <>
       <AppBar
-        position="static"
-        sx={{ margin: 0, paddingBottom: '15px', paddingTop: '15px', top: 0, left: 0, right: 0 }}
+        position="static" sx={{ margin: 0, padding: 0, width: "100%" }}
       >
         <Toolbar sx={{ margin: 0, padding: 0 }}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: '1000' }}>
             Supremes Boulevard
           </Typography>
+          <Button
+            sx={{ borderRadius: '0px', color: 'black', fontWeight: 'bold', marginRight:'10px' }}
+            color="inherit"
+            onClick={handleModalOpen} // Trigger the modal open handler
+          >
+            <CallIcon sx={{ marginRight: '5px' }} /> Call us - 8097039049 
+          </Button>
           <Button
             sx={{ borderRadius: '0px', color: 'black', fontWeight: 'bold' }}
             color="inherit"
@@ -58,6 +66,15 @@ const Navbar = () => {
             Request More Information
           </Typography>
           <form onSubmit={handleSubmit}>
+          <TextField
+              label="Name"
+              variant="outlined"
+              fullWidth
+              sx={{ mb: 2 }}
+              value={email}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
             <TextField
               label="Email"
               variant="outlined"

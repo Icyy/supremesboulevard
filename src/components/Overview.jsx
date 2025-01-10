@@ -10,13 +10,15 @@ import {
   CardContent,
 } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import img1 from "../assets/img1.jpeg";
-import img2 from "../assets/im2.jpeg";
+import img1 from "../assets/img12.png";
+import img2 from "../assets/img13.png";
 import img3 from "../assets/img3.jpg";
 import demoImg from "../assets/img3.jpg";
-import fp1 from "../assets/3bhk plan.jpg";
-import fp2 from "../assets/Building plan.jpeg";
-import fp3 from "../assets/images.png";
+import fp1 from "../assets/floorplan1.png";
+import fp2 from "../assets/floorplan2.png";
+import fp3 from "../assets/floorplan3.png";
+import fp5 from "../assets/floorplan4.png";
+import fp6 from "../assets/floorplan5.png";
 import fa1 from "../assets/fa1.png";
 import fa2 from "../assets/fa2.jpg";
 import fa3 from "../assets/fa3.jpg";
@@ -67,6 +69,7 @@ const imageBlurStyle = {
 
 const Overview = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -93,7 +96,7 @@ const Overview = () => {
             width: "100%",
             height: "auto",
             maxHeight: "500px",
-            objectFit: "cover",
+            objectFit: "contain",
           }}
         />
         <img
@@ -103,7 +106,7 @@ const Overview = () => {
             width: "100%",
             height: "auto",
             maxHeight: "500px",
-            objectFit: "cover",
+            objectFit: "contain",
           }}
         />
         <img
@@ -153,7 +156,7 @@ const Overview = () => {
               Floor Plan
             </Typography>
             <Carousel>
-              {[fp1, fp2, fp3].map((image, idx) => (
+              {[fp1, fp2, fp3,fp5,fp6].map((image, idx) => (
                 <div
                   key={idx}
                   style={{
@@ -308,6 +311,15 @@ const Overview = () => {
                   Request More Information
                 </Typography>
                 <form onSubmit={handleSubmit}>
+                <TextField
+                    label="Name"
+                    variant="outlined"
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
                   <TextField
                     label="Email"
                     variant="outlined"
@@ -350,17 +362,40 @@ const Overview = () => {
                   <br />
                   Nariman Point – 20 km
                 </Typography>
-                <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
-                  Shopping Malls
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  About Us
                 </Typography>
                 <Typography variant="body1">
-                  Shoppers’ Stop – 2 km
-                  <br />
-                  K Star Mall - 2 km
-                  <br />
-                  R-City Mall - 7 km
-                  <br />
-                  Phoenix Market City - 6 km
+                  Supreme Universal is one of the prominent luxury developers in
+                  Mumbai and Pune. Since its inception in 1982, it has till now
+                  delivered 60+ projects in Mumbai and 10+ projects in Pune
+                  across residential and commercial sectors. The developer has
+                  been redefining spaces with its distinctive architecture and
+                  construction techniques.
+                </Typography>
+                <Typography variant="body1">RERA No: A51900004566</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  Disclaimer:
+                </Typography>
+                <Typography variant="body1">
+                  We are an authorized marketing partner for this project. The
+                  information provided on this website is sourced from the
+                  respective owners and is intended for informational purposes
+                  only. It does not constitute an offer to avail any services.
+                  This is not the official website. Website maintained by
+                  Authorized Markerting Channel Partner Maha Rera No
+                  A51900004566. By providing your details, you agree to receive
+                  calls, SMS, or emails regarding your inquiry. 
                 </Typography>
               </CardContent>
             </Card>
