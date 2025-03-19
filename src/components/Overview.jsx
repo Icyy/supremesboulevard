@@ -75,10 +75,41 @@ const Overview = () => {
 
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    setModalOpen(false);
+
+
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = {
+      name,
+      email,
+      phone,
+    };
+  
+    try {
+      const response = await fetch("https://formspree.io/f/xovejdwz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        alert("Form submitted successfully! We'll get in touch soon.");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setModalOpen(false);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again later.");
+    }
   };
 
   return (

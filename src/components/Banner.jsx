@@ -53,7 +53,7 @@ const overlayStyles = {
 const Banner = () => {
   const [open, setOpen] = useState(false);
   const [selectedApartment, setSelectedApartment] = useState("");
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -71,10 +71,38 @@ const Banner = () => {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission here
-    setOpen(false);
+
+    const formData = {
+      name,
+      email,
+      phone,
+      apartment: selectedApartment,
+    };
+  
+    try {
+      const response = await fetch("https://formspree.io/f/xovejdwz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        alert("Form submitted successfully! We'll get in touch soon.");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setOpen(false);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again later.");
+    }
   };
 
   return (
@@ -168,7 +196,14 @@ const Banner = () => {
         >
           <Grid item xs={12} md={4}>
             <Card
-              sx={{ ...cardStyles, backgroundImage: `url(${bhk3l})` }}
+              sx={{
+                ...cardStyles,
+                backgroundImage: `url(${bhk3l})`,
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
+                },
+              }}
               onClick={() => handleClickOpen("2BHK - 727.75 + 30.24 sq ft")}
               className="card"
             >
@@ -183,7 +218,9 @@ const Banner = () => {
           <Grid item xs={12} md={4}>
             <Card
               sx={{ ...cardStyles, backgroundImage: `url(${bhk3})` }}
-              onClick={() => handleClickOpen("Smart 3BHK - 881.78 + 56.18 sq ft")}
+              onClick={() =>
+                handleClickOpen("Smart 3BHK - 881.78 + 56.18 sq ft")
+              }
               className="card"
             >
               <Box sx={overlayStyles} />
@@ -197,7 +234,9 @@ const Banner = () => {
           <Grid item xs={12} md={4}>
             <Card
               sx={{ ...cardStyles, backgroundImage: `url(${bhk2})` }}
-              onClick={() => handleClickOpen("Lux 3BHK - 1004.17 + 61.24 sq ft")}
+              onClick={() =>
+                handleClickOpen("Lux 3BHK - 1004.17 + 61.24 sq ft")
+              }
               className="card"
             >
               <Box sx={overlayStyles} />
@@ -218,11 +257,15 @@ const Banner = () => {
             px: 4,
             py: 1.5,
             fontSize: { xs: "0.9rem", md: "1rem" },
-            textTransform: "none", // Keeps the button text case as is
+            textTransform: "none",
             mb: 2,
-            color: "black",
+            color: "white",
             fontWeight: "bold",
-            borderRadius: "0px",
+            borderRadius: "4px",
+            background: "linear-gradient(45deg, #ff9800 30%, #ff5722 90%)",
+            "&:hover": {
+              background: "linear-gradient(45deg, #ff5722 30%, #e64a19 90%)",
+            },
           }}
           onClick={handleButtonClick} // Opens popup on click
         >
@@ -267,11 +310,14 @@ const Banner = () => {
               required
             />
             <TextField
-              margin="dense"
               label="Mobile Number"
               type="tel"
               fullWidth
-              onChange={(e) => setPhone(e.target.value)}
+              value={phone}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d{0,10}$/.test(value)) setPhone(value); // Allow only 10 digits
+              }}
               required
             />
             <DialogActions>
