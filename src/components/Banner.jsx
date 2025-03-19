@@ -80,7 +80,7 @@ const Banner = () => {
       phone,
       apartment: selectedApartment,
     };
-  
+
     try {
       const response = await fetch("https://formspree.io/f/xovejdwz", {
         method: "POST",
@@ -89,7 +89,7 @@ const Banner = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (response.ok) {
         alert("Form submitted successfully! We'll get in touch soon.");
         setName("");
@@ -203,6 +203,7 @@ const Banner = () => {
                   transform: "scale(1.05)",
                   boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
                 },
+                cursor: "pointer",
               }}
               onClick={() => handleClickOpen("2BHK - 727.75 + 30.24 sq ft")}
               className="card"
@@ -217,7 +218,15 @@ const Banner = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             <Card
-              sx={{ ...cardStyles, backgroundImage: `url(${bhk3})` }}
+              sx={{
+                ...cardStyles,
+                backgroundImage: `url(${bhk3})`,
+                cursor: "pointer",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
+                },
+              }}
               onClick={() =>
                 handleClickOpen("Smart 3BHK - 881.78 + 56.18 sq ft")
               }
@@ -233,7 +242,15 @@ const Banner = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             <Card
-              sx={{ ...cardStyles, backgroundImage: `url(${bhk2})` }}
+              sx={{
+                ...cardStyles,
+                backgroundImage: `url(${bhk2})`,
+                cursor: "pointer",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
+                },
+              }}
               onClick={() =>
                 handleClickOpen("Lux 3BHK - 1004.17 + 61.24 sq ft")
               }
