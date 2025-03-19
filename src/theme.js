@@ -60,7 +60,7 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#1a1a1a', // Dark grey for navbar
+          backgroundColor: 'black', // Dark grey for navbar
         },
       },
     },

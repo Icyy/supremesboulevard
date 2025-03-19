@@ -30,7 +30,7 @@ const Navbar = () => {
       >
         <Toolbar sx={{ margin: 0, padding: 0 }}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: '1000' }}>
-            Supremes Boulevard
+            Supreme Boulevard
           </Typography>
           <Button
             sx={{ borderRadius: '0px', color: 'black', fontWeight: 'bold', marginRight:'10px' }}
@@ -71,7 +71,7 @@ const Navbar = () => {
               variant="outlined"
               fullWidth
               sx={{ mb: 2 }}
-              value={email}
+              value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
