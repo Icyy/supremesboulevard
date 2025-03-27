@@ -11,13 +11,15 @@ import {
   DialogContent,
   TextField,
   DialogActions,
+  IconButton,
 } from "@mui/material";
-import img1 from "../assets/bgImg.png"; // Import the local image
-import img2 from "../assets/im2.jpeg";
-import img3 from "../assets/img3.jpg";
+import CloseIcon from "@mui/icons-material/Close";
+import img1 from "../assets/bgImg.png";
 import bhk2 from "../assets/2bhk.png";
 import bhk3 from "../assets/3bhk.jpg";
 import bhk3l from "../assets/3bhkl.jpg";
+import demoVideo from "../assets/video1.mp4";
+import bannerVideo from "../assets/video2.mp4";
 
 const cardStyles = {
   height: "200px",
@@ -31,13 +33,9 @@ const cardStyles = {
   textShadow: "2px 2px 4px rgba(0,0,0,0.6)",
   position: "relative",
   overflow: "hidden",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)", // Drop shadow
-  transition: "transform 0.3s, box-shadow 0.3s", // Smooth transition
-};
-
-const cardHoverStyles = {
-  transform: "scale(1.05)", // Zoom effect
-  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)", // Enhanced shadow on hover
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
+  transition: "transform 0.3s, box-shadow 0.3s",
+  cursor: "pointer",
 };
 
 const overlayStyles = {
@@ -46,12 +44,13 @@ const overlayStyles = {
   left: 0,
   width: "100%",
   height: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent overlay
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
   zIndex: 1,
 };
 
 const Banner = () => {
   const [open, setOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
   const [selectedApartment, setSelectedApartment] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -63,12 +62,17 @@ const Banner = () => {
   };
 
   const handleButtonClick = () => {
-    setSelectedApartment("Booking Inquiry"); // Or any other placeholder
+    setSelectedApartment("Booking Inquiry");
     setOpen(true);
+  };
+
+  const handleVideoOpen = () => {
+    setVideoOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setVideoOpen(false);
   };
 
   const handleSubmit = async (event) => {
@@ -111,19 +115,18 @@ const Banner = () => {
         backgroundImage: `url(${img1})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: { xs: "800px", md: "700px" }, // Responsive height
+        height: { xs: "1400px", md: "1000px" },
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        padding: "0 20px",
-        position: "relative", // To position overlay if needed
-        color: "#ffffff", // White text for the banner
+        padding: "0 0",
+        position: "relative",
+        color: "#ffffff",
         textShadow: "2px 2px 4px rgba(0,0,0,0.6)",
       }}
     >
-      {/* Optional Overlay for better text readability */}
       <Box
         sx={{
           position: "absolute",
@@ -131,20 +134,12 @@ const Banner = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.9)", // Semi-transparent overlay
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
           zIndex: 1,
         }}
       />
 
-      <Box
-        sx={{
-          position: "relative",
-          zIndex: 2,
-          maxWidth: "1200px",
-          color: "white",
-        }}
-      >
-        {/* Main Heading */}
+      <Box sx={{ position: "relative", zIndex: 2, maxWidth: "1200px" }}>
         <Typography
           variant="h2"
           sx={{
@@ -154,203 +149,131 @@ const Banner = () => {
             color: "white",
           }}
         >
-          We're thrilled to announce a New Launch in Chembur by Supreme!
+          New Launch in Chembur by Supreme!
         </Typography>
-        <Typography
-          variant="h5"
-          sx={{
-            fontWeight: "300",
-            mb: 4,
-            fontSize: { xs: "1.2rem", md: "1.5rem" },
-          }}
-        >
+        <Typography variant="h5" sx={{ fontWeight: "300", mb: 4 }}>
           Luxury apartments in the heart of Chembur
         </Typography>
 
-        {/* Key Details */}
         <Grid container spacing={4} justifyContent="center" sx={{ mb: 4 }}>
-          <Grid item xs={12} md={2}>
-            <Typography
-              variant="body1"
-              sx={{ fontWeight: "bold", color: "white" }}
-            >
-              <strong>5 Acres of Land</strong>
+          <Grid item xs={6} sm={4} md={2}>
+            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+              5 Acres of Land
             </Typography>
           </Grid>
-          <Grid item xs={12} md={2}>
-            <Typography
-              variant="body1"
-              sx={{ fontWeight: "bold", color: "white" }}
-            >
-              <strong>34-storey, 4 towers</strong>
+          <Grid item xs={6} sm={4} md={2}>
+            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+              34-storey, 4 towers
             </Typography>
           </Grid>
         </Grid>
 
-        {/* Apartment Details as Clickable Cards */}
-        <Grid
-          container
-          spacing={4}
-          justifyContent="center"
-          sx={{ marginTop: "20px", marginBottom: "20px" }}
+        {/* Video component after 34-storey, 4 towers */}
+        <Box
+          sx={{
+            width: "100%",
+            height: "auto",
+            mb: 4,
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
-          <Grid item xs={12} md={4}>
-            <Card
-              sx={{
-                ...cardStyles,
-                backgroundImage: `url(${bhk3l})`,
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
-                },
-                cursor: "pointer",
-              }}
-              onClick={() => handleClickOpen("2BHK - 727.75 + 30.24 sq ft")}
-              className="card"
-            >
-              <Box sx={overlayStyles} />
-              <CardContent sx={{ position: "relative", zIndex: 2 }}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  2BHK - 727.75 + 30.24 sq ft
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Card
-              sx={{
-                ...cardStyles,
-                backgroundImage: `url(${bhk3})`,
-                cursor: "pointer",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
-                },
-              }}
-              onClick={() =>
-                handleClickOpen("Smart 3BHK - 881.78 + 56.18 sq ft")
-              }
-              className="card"
-            >
-              <Box sx={overlayStyles} />
-              <CardContent sx={{ position: "relative", zIndex: 2 }}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Smart 3BHK - 881.78 + 56.18 sq ft
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Card
-              sx={{
-                ...cardStyles,
-                backgroundImage: `url(${bhk2})`,
-                cursor: "pointer",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
-                },
-              }}
-              onClick={() =>
-                handleClickOpen("Lux 3BHK - 1004.17 + 61.24 sq ft")
-              }
-              className="card"
-            >
-              <Box sx={overlayStyles} />
-              <CardContent sx={{ position: "relative", zIndex: 2 }}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Lux 3BHK - 1004.17 + 61.24 sq ft
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <video
+            controls
+            autoPlay
+            muted 
+            loop
+            style={{
+              width: "100%",
+              maxWidth: "800px",
+              maxHeight: "auto",
+              objectFit: "cover",
+            }}
+          >
+            <source src={bannerVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </Box>
+
+        <Grid container spacing={4} justifyContent="center">
+          {[["2BHK - 727.75 + 30.24 sq ft", bhk3l], ["Smart 3BHK - 881.78 + 56.18 sq ft", bhk3], ["Lux 3BHK - 1004.17 + 61.24 sq ft", bhk2]].map(([title, img], index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                sx={{
+                  ...cardStyles,
+                  backgroundImage: `url(${img})`,
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
+                  },
+                }}
+                onClick={() => handleClickOpen(title)}
+              >
+                <Box sx={overlayStyles} />
+                <CardContent sx={{ position: "relative", zIndex: 2 }}>
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    {title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
 
-        {/* Call to Action */}
-        <Button
-          variant="contained"
-          color="secondary"
+        <Box
           sx={{
-            px: 4,
-            py: 1.5,
-            fontSize: { xs: "0.9rem", md: "1rem" },
-            textTransform: "none",
-            mb: 2,
-            color: "white",
-            fontWeight: "bold",
-            borderRadius: "4px",
-            background: "linear-gradient(45deg, #ff9800 30%, #ff5722 90%)",
-            "&:hover": {
-              background: "linear-gradient(45deg, #ff5722 30%, #e64a19 90%)",
-            },
-          }}
-          onClick={handleButtonClick} // Opens popup on click
-        >
-          Click here to book now
-        </Button>
-        <Typography
-          variant="body2"
-          sx={{
-            mt: 2,
-            fontStyle: "italic",
-            fontSize: { xs: "0.8rem", md: "0.9rem" },
-            marginTop: "0px",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: 2,
+            mt: 3,
           }}
         >
-          Move in within 3 years!
-        </Typography>
+          <Button
+            variant="contained"
+            onClick={handleButtonClick}
+            sx={{
+              backgroundColor: "#ff9800",
+              "&:hover": { backgroundColor: "#e67e22" },
+            }}
+          >
+            Click here to book now
+          </Button>
+          <Button variant="contained" color="secondary" onClick={handleVideoOpen}>
+            Online Demo Flat Tour
+          </Button>
+        </Box>
+
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Contact Us for More Details on {selectedApartment}</DialogTitle>
+          <DialogContent>
+            <form onSubmit={handleSubmit}>
+              <TextField label="Name" fullWidth sx={{ mb: 2 }} value={name} onChange={(e) => setName(e.target.value)} required />
+              <TextField label="Email" type="email" fullWidth sx={{ mb: 2 }} value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <TextField label="Mobile Number" type="tel" fullWidth value={phone} onChange={(e) => /^\d{0,10}$/.test(e.target.value) && setPhone(e.target.value)} required />
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button type="submit">Submit</Button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={videoOpen} onClose={handleClose} maxWidth="md" sx={{ "& .MuiDialog-paper": { height: "100vh", overflow: "hidden" } }}>
+          <DialogTitle>
+            Online Demo Flat Tour
+            <IconButton onClick={handleClose} sx={{ position: "absolute", right: 10, top: 10 }}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent sx={{ height: "calc(100vh - 64px)", overflow: "hidden" }}>
+            <video style={{ width: "100%", height: "100%" }} controls autoPlay>
+              <source src={demoVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </DialogContent>
+        </Dialog>
       </Box>
-
-      {/* Dialog for Email and Mobile Number */}
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          Contact Us for More Details on {selectedApartment}
-        </DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              variant="outlined"
-              fullWidth
-              sx={{ mb: 2 }}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              label="Email Address"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              required
-            />
-            <TextField
-              label="Mobile Number"
-              type="tel"
-              fullWidth
-              value={phone}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (/^\d{0,10}$/.test(value)) setPhone(value); // Allow only 10 digits
-              }}
-              required
-            />
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit">Submit</Button>
-            </DialogActions>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      <style jsx>{`
-        .card:hover {
-          transform: scale(1.05);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
-        }
-      `}</style>
     </Box>
   );
 };

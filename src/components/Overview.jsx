@@ -122,7 +122,7 @@ const Overview = () => {
       <Carousel>
         <img
           src={img1}
-          alt="Property Image 1"
+          alt="Property  1"
           style={{
             width: "100%",
             height: "auto",
@@ -132,7 +132,7 @@ const Overview = () => {
         />
         <img
           src={img2}
-          alt="Property Image 2"
+          alt="Property  2"
           style={{
             width: "100%",
             height: "auto",
@@ -142,7 +142,7 @@ const Overview = () => {
         />
         <img
           src={img3}
-          alt="Property Image 3"
+          alt="Property  3"
           style={{
             width: "100%",
             height: "auto",

@@ -1,60 +1,112 @@
 import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import DescriptionIcon from '@mui/icons-material/Description';
-import CallIcon from '@mui/icons-material/Call';
-import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Modal,
+  TextField,
+  Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  useMediaQuery,
+} from "@mui/material";
+import { Menu as MenuIcon, Description as DescriptionIcon, Call as CallIcon } from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
 
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Fix for screens < 600px
 
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     setModalOpen(false);
+  };
+
+  const toggleDrawer = (open) => () => {
+    setMobileOpen(open);
   };
 
   return (
     <>
-      <AppBar
-        position="static" sx={{ margin: 0, padding: 0, width: "100%" }}
-      >
-        <Toolbar sx={{ margin: 0, padding: 0 }}>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: '1000' }}>
+      <AppBar position="static" sx={{ backgroundColor: "#fff", color: "black", padding: "8px 0" }}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
+          {/* Logo */}
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              fontWeight: "bold",
+              flexGrow: 1,
+              textAlign: { xs: "center", sm: "left" }, // Center on small screens
+              marginBottom: { xs: "5px", sm: "0" }, // Prevent overlap
+            }}
+          >
             Supreme Boulevard
           </Typography>
-          <Button
-            sx={{ borderRadius: '0px', color: 'black', fontWeight: 'bold', marginRight:'10px' }}
-            color="inherit"
-            onClick={handleModalOpen} // Trigger the modal open handler
-          >
-            <CallIcon sx={{ marginRight: '5px' }} /> Call us - 8097039049 
-          </Button>
-          <Button
-            sx={{ borderRadius: '0px', color: 'black', fontWeight: 'bold' }}
-            color="inherit"
-            onClick={handleModalOpen} // Trigger the modal open handler
-          >
-            Download Brochure <DescriptionIcon sx={{ marginLeft: '5px' }} />
-          </Button>
+
+          {/* Desktop Navigation */}
+          {!isMobile ? (
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Button
+                sx={{ fontWeight: "bold", color: "black", marginRight: "10px", whiteSpace: "nowrap" }}
+                onClick={handleModalOpen}
+              >
+                <CallIcon sx={{ marginRight: "5px" }} /> Call us - 8097039049
+              </Button>
+              <Button sx={{ fontWeight: "bold", color: "black" }} onClick={handleModalOpen}>
+                Download Brochure <DescriptionIcon sx={{ marginLeft: "5px" }} />
+              </Button>
+            </Box>
+          ) : (
+            <>
+              {/* Mobile Menu Button */}
+              <IconButton edge="end" color="inherit" onClick={toggleDrawer(true)}>
+                <MenuIcon />
+              </IconButton>
+            </>
+          )}
         </Toolbar>
       </AppBar>
 
-      {/* Modal for requesting more information */}
+      {/* Mobile Drawer */}
+      <Drawer anchor="right" open={mobileOpen} onClose={toggleDrawer(false)}>
+        <Box sx={{ width: 250 }}>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleModalOpen}>
+                <CallIcon sx={{ marginRight: "5px" }} />
+                <ListItemText primary="Call us - 8097039049" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleModalOpen}>
+                <DescriptionIcon sx={{ marginRight: "5px" }} />
+                <ListItemText primary="Download Brochure" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
+
+      {/* Modal */}
       <Modal open={modalOpen} onClose={handleModalClose}>
         <Box
           sx={{
             p: 4,
-            maxWidth: 400,
+            maxWidth: { xs: "90%", sm: 400 },
             mx: "auto",
             mt: "10%",
             bgcolor: "background.paper",
@@ -66,7 +118,7 @@ const Navbar = () => {
             Request More Information
           </Typography>
           <form onSubmit={handleSubmit}>
-          <TextField
+            <TextField
               label="Name"
               variant="outlined"
               fullWidth
@@ -93,7 +145,7 @@ const Navbar = () => {
               onChange={(e) => setPhone(e.target.value)}
               required
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" fullWidth>
               Submit
             </Button>
           </form>
