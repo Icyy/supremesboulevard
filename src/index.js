@@ -9,7 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* Normalize styles */}
+      <CssBaseline /> 
       <App />
     </ThemeProvider>
   </React.StrictMode>,

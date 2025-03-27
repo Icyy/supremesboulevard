@@ -11,12 +11,13 @@ import Footer from './components/Footer';
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <Container sx={{backgroundColor:'rgba(5, 5, 5, 0.93)'}} maxWidth="xl">
       <CssBaseline />
       <Navbar />
       
       {/* Responsive Layout */}
-      <Container maxWidth="xl"> 
-        <Box sx={{ my: { xs: 6, md: 4 }, mr:0, ml:0 }}> 
+      <Container sx={{backgroundColor:'rgba(5, 5, 5, 0.93)'}} maxWidth="xl"> 
+        <Box sx={{ my: { xs: 6, md: 4 }, mr:0, ml:0, mt:2 }}> 
           <Banner />
         </Box>
         <Box sx={{ my: { xs: 2, md: 4 } }}>
@@ -25,6 +26,7 @@ function App() {
       </Container>
 
       <Footer />
+      </Container>
     </ThemeProvider>
   );
 }

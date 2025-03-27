@@ -114,7 +114,7 @@ const Overview = () => {
 
   return (
     <Box sx={{ p: 4 }}>
-      <Typography variant="h2" sx={{ mb: 3 }}>
+      <Typography variant="h2" sx={{ mb: 3,color:'white' }}>
         Overview
       </Typography>
 
@@ -156,7 +156,7 @@ const Overview = () => {
       <Box sx={{ mt: 4 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6} sx={{ marginBottom: "20px" }}>
-            <Typography variant="h2" sx={{ mb: 2 }}>
+            <Typography variant="h2" sx={{ mb: 2, color:'white' }}>
               Amenities
             </Typography>
             <Typography variant="body1" pararaph>
@@ -183,7 +183,7 @@ const Overview = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h2" sx={{ mb: 2 }}>
+            <Typography variant="h2" sx={{ mb: 2,color:'white' }}>
               Floor Plan
             </Typography>
             <Carousel>
@@ -216,7 +216,7 @@ const Overview = () => {
 
       {/* Featured Amenities */}
       <Box sx={{ mt: 4, width: "100%" }}>
-        <Typography variant="h2" sx={{ mb: 2 }}>
+        <Typography variant="h2" sx={{ mb: 2,color:'white' }}>
           Featured Amenities
         </Typography>
         <Grid container spacing={4}>
@@ -304,7 +304,7 @@ const Overview = () => {
 
       {/* Location & Connectivity */}
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h2" sx={{ mb: 2 }}>
+        <Typography variant="h2" sx={{ mb: 2, color:'white' }}>
           Location & Connectivity
         </Typography>
         <Grid container spacing={3}>
@@ -377,7 +377,7 @@ const Overview = () => {
             </Modal>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Card>
+            <Card sx={{borderRadius:'0px'}}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Connectivity
@@ -395,7 +395,7 @@ const Overview = () => {
                 </Typography>
               </CardContent>
             </Card>
-            <Card>
+            <Card sx={{borderRadius:'0px'}}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   About Us
@@ -413,7 +413,7 @@ const Overview = () => {
             </Card>
           </Grid>
           <Grid>
-            <Card>
+            <Card sx={{borderRadius:'0px'}}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Disclaimer:

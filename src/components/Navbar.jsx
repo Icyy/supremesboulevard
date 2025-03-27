@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#fff", color: "black", padding: "8px 0" }}>
+      <AppBar position="static" sx={{ backgroundColor: "black", color: "black", padding: "8px 0", ml:0, mr:0 }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
           {/* Logo */}
           <Typography
@@ -49,6 +49,7 @@ const Navbar = () => {
             component="div"
             sx={{
               fontWeight: "bold",
+              color:'white',
               flexGrow: 1,
               textAlign: { xs: "center", sm: "left" }, // Center on small screens
               marginBottom: { xs: "5px", sm: "0" }, // Prevent overlap
