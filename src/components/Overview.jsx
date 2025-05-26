@@ -69,15 +69,12 @@ const imageBlurStyle = {
 
 const Overview = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
-
-
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -87,7 +84,7 @@ const Overview = () => {
       email,
       phone,
     };
-  
+
     try {
       const response = await fetch("https://formspree.io/f/xovejdwz", {
         method: "POST",
@@ -96,7 +93,7 @@ const Overview = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (response.ok) {
         alert("Form submitted successfully! We'll get in touch soon.");
         setName("");
@@ -114,7 +111,7 @@ const Overview = () => {
 
   return (
     <Box sx={{ p: 4 }}>
-      <Typography variant="h2" sx={{ mb: 3,color:'white' }}>
+      <Typography variant="h2" sx={{ mb: 3, color: "white" }}>
         Overview
       </Typography>
 
@@ -152,71 +149,9 @@ const Overview = () => {
         />
       </Carousel>
 
-      {/* Amenities and Floor Plan */}
-      <Box sx={{ mt: 4 }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6} sx={{ marginBottom: "20px" }}>
-            <Typography variant="h2" sx={{ mb: 2, color:'white' }}>
-              Amenities
-            </Typography>
-            <Typography variant="body1" pararaph>
-              In Chembur, our legacy stands proud with Supreme Epitome and
-              Supreme Signature - Two luxury landmarks that have raised the bar
-              of premium living in the suburbs.
-            </Typography>
-            <br />
-            <Typography pararaph>
-              With Supreme Elenor, we take it a notch above! Supreme Boulevard
-              will not just be another premium residences with world Class
-              Ameneties .
-            </Typography>
-            <br />
-            <Typography pararaph>
-              It will be a one-of-a-kind symbol of healthy living. From elegant
-              apartments to a fully-equipped gym. From ACs in every home to the
-              serene pool and yoga deck. 81,000 Sqft Podium . Supreme Boulevard
-              provides the unique opportunity to live a life of luxury and that
-              of good health, in equal measure. Blending the best aspects of the
-              fine life, the fit life and the relaxed life, Supreme Boulevard
-              provides spaces where residents can fully embrace a healthy
-              lifestyle, in great style.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h2" sx={{ mb: 2,color:'white' }}>
-              Floor Plan
-            </Typography>
-            <Carousel>
-              {[fp1, fp2, fp3,fp5,fp6].map((image, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    position: "relative",
-                    height: "300px",
-                    width: "100%",
-                  }}
-                  onClick={handleModalOpen}
-                >
-                  <img
-                    src={image}
-                    alt={`Floor Plan ${idx + 1}`}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      filter: "blur(5px)",
-                    }}
-                  />
-                </div>
-              ))}
-            </Carousel>
-          </Grid>
-        </Grid>
-      </Box>
-
       {/* Featured Amenities */}
       <Box sx={{ mt: 4, width: "100%" }}>
-        <Typography variant="h2" sx={{ mb: 2,color:'white' }}>
+        <Typography variant="h2" sx={{ mb: 2, color: "white" }}>
           Featured Amenities
         </Typography>
         <Grid container spacing={4}>
@@ -302,9 +237,71 @@ const Overview = () => {
         </Grid>
       </Box>
 
+      {/* Amenities and Floor Plan */}
+      <Box sx={{ mt: 4 }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6} sx={{ marginBottom: "20px" }}>
+            <Typography variant="h2" sx={{ mb: 2, color: "white" }}>
+              Amenities
+            </Typography>
+            <Typography variant="body1" pararaph>
+              In Chembur, our legacy stands proud with Supreme Epitome and
+              Supreme Signature - Two luxury landmarks that have raised the bar
+              of premium living in the suburbs.
+            </Typography>
+            <br />
+            <Typography pararaph>
+              With Supreme Elenor, we take it a notch above! Supreme Boulevard
+              will not just be another premium residences with world Class
+              Ameneties .
+            </Typography>
+            <br />
+            <Typography pararaph>
+              It will be a one-of-a-kind symbol of healthy living. From elegant
+              apartments to a fully-equipped gym. From ACs in every home to the
+              serene pool and yoga deck. 81,000 Sqft Podium . Supreme Boulevard
+              provides the unique opportunity to live a life of luxury and that
+              of good health, in equal measure. Blending the best aspects of the
+              fine life, the fit life and the relaxed life, Supreme Boulevard
+              provides spaces where residents can fully embrace a healthy
+              lifestyle, in great style.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h2" sx={{ mb: 2, color: "white" }}>
+              Floor Plan
+            </Typography>
+            <Carousel>
+              {[fp1, fp2, fp3, fp5, fp6].map((image, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    position: "relative",
+                    height: "300px",
+                    width: "100%",
+                  }}
+                  onClick={handleModalOpen}
+                >
+                  <img
+                    src={image}
+                    alt={`Floor Plan ${idx + 1}`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      filter: "blur(5px)",
+                    }}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </Grid>
+        </Grid>
+      </Box>
+
       {/* Location & Connectivity */}
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h2" sx={{ mb: 2, color:'white' }}>
+        <Typography variant="h2" sx={{ mb: 2, color: "white" }}>
           Location & Connectivity
         </Typography>
         <Grid container spacing={3}>
@@ -342,7 +339,7 @@ const Overview = () => {
                   Request More Information
                 </Typography>
                 <form onSubmit={handleSubmit}>
-                <TextField
+                  <TextField
                     label="Name"
                     variant="outlined"
                     fullWidth
@@ -377,7 +374,7 @@ const Overview = () => {
             </Modal>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Card sx={{borderRadius:'0px'}}>
+            <Card sx={{ borderRadius: "0px" }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Connectivity
@@ -395,7 +392,7 @@ const Overview = () => {
                 </Typography>
               </CardContent>
             </Card>
-            <Card sx={{borderRadius:'0px'}}>
+            <Card sx={{ borderRadius: "0px" }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   About Us
@@ -413,7 +410,7 @@ const Overview = () => {
             </Card>
           </Grid>
           <Grid>
-            <Card sx={{borderRadius:'0px'}}>
+            <Card sx={{ borderRadius: "0px" }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Disclaimer:
@@ -426,7 +423,7 @@ const Overview = () => {
                   This is not the official website. Website maintained by
                   Authorized Markerting Channel Partner Maha Rera No
                   A51900004566. By providing your details, you agree to receive
-                  calls, SMS, or emails regarding your inquiry. 
+                  calls, SMS, or emails regarding your inquiry.
                 </Typography>
               </CardContent>
             </Card>

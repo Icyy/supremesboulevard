@@ -3,17 +3,20 @@ import {
   Box,
   Typography,
   Button,
-  Grid,
-  Card,
-  CardContent,
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
   DialogActions,
   IconButton,
 } from "@mui/material";
+
 import CloseIcon from "@mui/icons-material/Close";
+
 import img1 from "../assets/bgImg.png";
 import bhk2 from "../assets/2bhk.png";
 import bhk3 from "../assets/3bhk.jpg";
@@ -21,63 +24,25 @@ import bhk3l from "../assets/3bhkl.jpg";
 import demoVideo from "../assets/video1.mp4";
 import bannerVideo from "../assets/video2.mp4";
 
-const cardStyles = {
-  height: "200px",
-  width: "100%",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "white",
-  textShadow: "2px 2px 4px rgba(0,0,0,0.6)",
-  position: "relative",
-  overflow: "hidden",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
-  transition: "transform 0.3s, box-shadow 0.3s",
-  cursor: "pointer",
-};
-
-const overlayStyles = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
-  zIndex: 1,
-};
-
 const Banner = () => {
   const [open, setOpen] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false);
+
   const [selectedApartment, setSelectedApartment] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [videoOpen, setVideoOpen] = useState(false);
+
+  const handleDialogOpen = () => setOpen(true);
+  const handleDialogClose = () => setOpen(false);
 
   const handleClickOpen = (apartment) => {
     setSelectedApartment(apartment);
     setOpen(true);
   };
 
-  const handleButtonClick = () => {
-    setSelectedApartment("Booking Inquiry");
-    setOpen(true);
-  };
-
-  const handleVideoOpen = () => {
-    setVideoOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setVideoOpen(false);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
     const formData = {
       name,
       email,
@@ -107,173 +72,208 @@ const Banner = () => {
       console.error("Error submitting form:", error);
       alert("Error submitting form. Please try again later.");
     }
+    handleDialogClose();
+  };
+
+  const handleVideoOpen = () => {
+    setVideoOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setVideoOpen(false);
   };
 
   return (
-    <Box
-      sx={{
-        backgroundImage: `url(${img1})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: { xs: "1400px", md: "1000px" },
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        padding: "0 0",
-        position: "relative",
-        color: "#ffffff",
-        textShadow: "2px 2px 4px rgba(0,0,0,0.6)",
-      }}
-    >
-      <Box
+    <Box sx={{ py: 6, px: 2 }}>
+      {/* Headline */}
+      <Typography
+        variant="h3"
+        align="center"
         sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          zIndex: 1,
+          fontWeight: "bold",
+          color: "#fff",
+          mb: 2,
+          fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3rem" },
         }}
-      />
+      >
+        Crafted by Supreme – Built to Last a Lifetime
+      </Typography>
 
-      <Box sx={{ position: "relative", zIndex: 2, maxWidth: "1200px" }}>
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: "bold",
-            mb: 2,
-            fontSize: { xs: "2rem", md: "3rem" },
-            color: "white",
-          }}
-        >
-          New Launch in Chembur by Supreme!
-        </Typography>
-        <Typography variant="h5" sx={{ fontWeight: "300", mb: 4 }}>
-          Luxury apartments in the heart of Chembur
-        </Typography>
+      {/* Subheadline */}
+      <Typography
+        variant="h6"
+        align="center"
+        sx={{ color: "#fff", mb: 3, fontSize: { xs: "1rem", md: "1.25rem" } }}
+      >
+        Premium 2, 3 & 4 BHK residences that reflect your success and your style.
+      </Typography>
 
-        <Grid container spacing={4} justifyContent="center" sx={{ mb: 4 }}>
-          <Grid item xs={6} sm={4} md={2}>
-            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-              5 Acres of Land
+      {/* Feature Bullets */}
+      <Grid container spacing={2} justifyContent="center" sx={{ mb: 4 }}>
+        {["5 Acres of Land", "34-storey, 4 towers"].map((item, idx) => (
+          <Grid item xs={12} sm={6} md={3} key={idx}>
+            <Typography variant="body1" align="center" sx={{ color: "#fff" }}>
+              {item}
             </Typography>
           </Grid>
-          <Grid item xs={6} sm={4} md={2}>
-            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-              34-storey, 4 towers
-            </Typography>
-          </Grid>
-        </Grid>
+        ))}
+      </Grid>
 
-        {/* Video component after 34-storey, 4 towers */}
+      {/* Embedded Video */}
+      <Box sx={{ width: "100%", px: 2, mb: 4 }}>
         <Box
           sx={{
+            position: "relative",
             width: "100%",
-            height: "auto",
-            mb: 4,
-            display: "flex",
-            justifyContent: "center",
+            maxWidth: "900px",
+            aspectRatio: "16 / 9",
+            mx: "auto",
+            borderRadius: 2,
+            overflow: "hidden",
           }}
         >
           <video
-            controls
+            src={bannerVideo}
             autoPlay
-            muted 
+            muted
             loop
-            style={{
-              width: "100%",
-              maxWidth: "800px",
-              maxHeight: "auto",
-              objectFit: "cover",
-            }}
-          >
-            <source src={bannerVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+            playsInline
+            controls
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
         </Box>
+      </Box>
 
-        <Grid container spacing={4} justifyContent="center">
-          {[["2BHK - 727.75 + 30.24 sq ft", bhk3l], ["Smart 3BHK - 881.78 + 56.18 sq ft", bhk3], ["Lux 3BHK - 1004.17 + 61.24 sq ft", bhk2]].map(([title, img], index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card
-                sx={{
-                  ...cardStyles,
-                  backgroundImage: `url(${img})`,
-                  "&:hover": {
-                    transform: "scale(1.05)",
-                    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.7)",
-                  },
-                }}
-                onClick={() => handleClickOpen(title)}
-              >
-                <Box sx={overlayStyles} />
-                <CardContent sx={{ position: "relative", zIndex: 2 }}>
-                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                    {title}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-
-        <Box
+      {/* Enquire Now Button */}
+      <Box textAlign="center" sx={{ mb: 4 }}>
+        <Button
+          variant="contained"
+          onClick={handleDialogOpen}
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: 2,
-            mt: 3,
+            backgroundColor: "rgb(223, 139, 38)",
+            color: "black",
+            fontWeight: "bold",
+            "&:hover": { backgroundColor: "rgb(193, 119, 30)" },
+            marginRight:'20px'
           }}
         >
-          <Button
-            variant="contained"
-            onClick={handleButtonClick}
-            sx={{
-              backgroundColor: "#ff9800",
-              "&:hover": { backgroundColor: "#e67e22" },
-            }}
-          >
-            Click here to book now
-          </Button>
-          <Button variant="contained" color="secondary" onClick={handleVideoOpen}>
-            Online Demo Flat Tour
-          </Button>
-        </Box>
-
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Contact Us for More Details on {selectedApartment}</DialogTitle>
-          <DialogContent>
-            <form onSubmit={handleSubmit}>
-              <TextField label="Name" fullWidth sx={{ mb: 2 }} value={name} onChange={(e) => setName(e.target.value)} required />
-              <TextField label="Email" type="email" fullWidth sx={{ mb: 2 }} value={email} onChange={(e) => setEmail(e.target.value)} required />
-              <TextField label="Mobile Number" type="tel" fullWidth value={phone} onChange={(e) => /^\d{0,10}$/.test(e.target.value) && setPhone(e.target.value)} required />
-              <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button type="submit">Submit</Button>
-              </DialogActions>
-            </form>
-          </DialogContent>
-        </Dialog>
-
-        <Dialog open={videoOpen} onClose={handleClose} maxWidth="md" sx={{ "& .MuiDialog-paper": { height: "100vh", overflow: "hidden" } }}>
-          <DialogTitle>
-            Online Demo Flat Tour
-            <IconButton onClick={handleClose} sx={{ position: "absolute", right: 10, top: 10 }}>
-              <CloseIcon />
-            </IconButton>
-          </DialogTitle>
-          <DialogContent sx={{ height: "calc(100vh - 64px)", overflow: "hidden" }}>
-            <video style={{ width: "100%", height: "100%" }} controls autoPlay>
-              <source src={demoVideo} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </DialogContent>
-        </Dialog>
+          Enquire
+        </Button>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "rgb(223, 139, 38)",
+            color: "black",
+            fontWeight: "bold",
+            "&:hover": { backgroundColor: "rgb(193, 119, 30)" },
+          }}
+          onClick={handleVideoOpen}
+        >
+          Flat Tour
+        </Button>
       </Box>
+
+      {/* Apartment Cards */}
+      <Grid container spacing={3} justifyContent="center" sx={{ mb: 5 }}>
+        {[
+          ["2BHK - 727.75 + 30.24 sq ft", bhk2],
+          ["Smart 3BHK - 881.78 + 56.18 sq ft", bhk3],
+          ["Lux 3BHK - 1004.17 + 61.24 sq ft", bhk3l],
+        ].map(([title, img], index) => (
+          <Grid item xs={12} sm={6} md={4} key={index} sx={{cursor:'pointer'}}>
+            <Card
+              sx={{ backgroundColor: "#fff", borderRadius: 2 }}
+              onClick={() => handleClickOpen(title)}
+            >
+              <CardMedia component="img" height="200" image={img} alt={title} />
+              <CardContent>
+                <Typography
+                  variant="subtitle1"
+                  align="center"
+                  sx={{ fontWeight: "bold" }}
+                >
+                  {title}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* Dialog Form */}
+      <Dialog open={open} onClose={handleDialogClose}>
+        <DialogTitle sx={{ fontWeight: "bold" }}>Enquire Now</DialogTitle>
+        <DialogContent>
+          <Box
+            component="form"
+            onSubmit={handleFormSubmit}
+            sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}
+          >
+            <TextField
+              autoFocus
+              required
+              label="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              required
+              label="Mobile Number"
+              type="tel"
+              fullWidth
+              value={phone}
+              onChange={(e) =>
+                /^\d{0,10}$/.test(e.target.value) && setPhone(e.target.value)
+              }
+              variant="outlined"
+              inputProps={{ maxLength: 10, pattern: "[0-9]{10}" }}
+            />
+            <TextField
+              required
+              label="Email"
+              type="email"
+              fullWidth
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              variant="outlined"
+            />
+            <DialogActions sx={{ justifyContent: "space-between", px: 0 }}>
+              <Button onClick={handleDialogClose}>Cancel</Button>
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
+            </DialogActions>
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={videoOpen}
+        onClose={handleClose}
+        maxWidth="md"
+        sx={{ "& .MuiDialog-paper": { height: "100vh", overflow: "hidden" } }}
+      >
+        <DialogTitle>
+          Online Demo Flat Tour
+          <IconButton
+            onClick={handleClose}
+            sx={{ position: "absolute", right: 10, top: 10 }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent
+          sx={{ height: "calc(100vh - 64px)", overflow: "hidden" }}
+        >
+          <video style={{ width: "100%", height: "100%" }} controls autoPlay muted>
+            <source src={demoVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

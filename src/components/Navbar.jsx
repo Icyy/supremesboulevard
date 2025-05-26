@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { Menu as MenuIcon, Description as DescriptionIcon, Call as CallIcon } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
+import logo from '../assets/logo.png'
 
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,60 +25,81 @@ const Navbar = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [downloadPDF, setDownloadPDF] = useState(false); // Flag to determine action
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Fix for screens < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleModalOpen = () => setModalOpen(true);
+  const handleModalOpen = (shouldDownload) => {
+    setDownloadPDF(shouldDownload);
+    setModalOpen(true);
+  };
+
   const handleModalClose = () => setModalOpen(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setModalOpen(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = { name, email, phone };
+
+    try {
+      const response = await fetch("https://formspree.io/f/xovejdwz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        downloadPDF? alert("Downloading Brochure"):alert("Form submitted successfully!");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setModalOpen(false);
+
+        // Only download the PDF if "Download Brochure" was clicked
+        if (downloadPDF) {
+          const link = document.createElement("a");
+          link.href = "/brochure.pdf"; // Ensure this file is inside the "public" folder
+          link.download = "brochure.pdf";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again later.");
+    }
   };
 
-  const toggleDrawer = (open) => () => {
-    setMobileOpen(open);
-  };
+  const toggleDrawer = (open) => () => setMobileOpen(open);
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "black", color: "black", padding: "8px 0", ml:0, mr:0 }}>
+      <AppBar position="static" sx={{ backgroundColor: "black", padding: "8px 0" }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
-          {/* Logo */}
           <Typography
             variant="h6"
-            component="div"
-            sx={{
-              fontWeight: "bold",
-              color:'white',
-              flexGrow: 1,
-              textAlign: { xs: "center", sm: "left" }, // Center on small screens
-              marginBottom: { xs: "5px", sm: "0" }, // Prevent overlap
-            }}
+            sx={{ fontWeight: "bold", color: "white", flexGrow: 1, textAlign: { xs: "center", sm: "left" } }}
           >
-            Supreme Boulevard
+            <img src={logo} alt="Supreme Boulevard" style={{height:'40px', width:'100px'}} />
           </Typography>
 
-          {/* Desktop Navigation */}
           {!isMobile ? (
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Button
-                sx={{ fontWeight: "bold", color: "black", marginRight: "10px", whiteSpace: "nowrap" }}
-                onClick={handleModalOpen}
-              >
-                <CallIcon sx={{ marginRight: "5px" }} /> Call us - 8097039049
+              <Button sx={{ fontWeight: "bold", color: "black", marginRight: "10px" }} onClick={() => handleModalOpen(false)}>
+                <CallIcon sx={{ marginRight: "5px" }} /> Call us - 9619684057
               </Button>
-              <Button sx={{ fontWeight: "bold", color: "black" }} onClick={handleModalOpen}>
+              <Button sx={{ fontWeight: "bold", color: "black" }} onClick={() => handleModalOpen(true)}>
                 Download Brochure <DescriptionIcon sx={{ marginLeft: "5px" }} />
               </Button>
             </Box>
           ) : (
-            <>
-              {/* Mobile Menu Button */}
-              <IconButton edge="end" color="inherit" onClick={toggleDrawer(true)}>
-                <MenuIcon />
-              </IconButton>
-            </>
+            <IconButton edge="end" color="inherit" onClick={toggleDrawer(true)}>
+              <MenuIcon />
+            </IconButton>
           )}
         </Toolbar>
       </AppBar>
@@ -87,13 +109,13 @@ const Navbar = () => {
         <Box sx={{ width: 250 }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={handleModalOpen}>
+              <ListItemButton onClick={() => handleModalOpen(false)}>
                 <CallIcon sx={{ marginRight: "5px" }} />
                 <ListItemText primary="Call us - 8097039049" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={handleModalOpen}>
+              <ListItemButton onClick={() => handleModalOpen(true)}>
                 <DescriptionIcon sx={{ marginRight: "5px" }} />
                 <ListItemText primary="Download Brochure" />
               </ListItemButton>
@@ -116,36 +138,12 @@ const Navbar = () => {
           }}
         >
           <Typography variant="h6" sx={{ mb: 2 }}>
-            Request More Information
+            {downloadPDF ? "Download Brochure" : "Request More Information"}
           </Typography>
           <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              variant="outlined"
-              fullWidth
-              sx={{ mb: 2 }}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <TextField
-              label="Email"
-              variant="outlined"
-              fullWidth
-              sx={{ mb: 2 }}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <TextField
-              label="Phone Number"
-              variant="outlined"
-              fullWidth
-              sx={{ mb: 2 }}
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-            />
+            <TextField label="Name" variant="outlined" fullWidth sx={{ mb: 2 }} value={name} onChange={(e) => setName(e.target.value)} required />
+            <TextField label="Email" variant="outlined" fullWidth sx={{ mb: 2 }} value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <TextField label="Phone Number" variant="outlined" fullWidth sx={{ mb: 2 }} value={phone} onChange={(e) => setPhone(e.target.value)} required />
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Submit
             </Button>
