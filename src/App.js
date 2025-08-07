@@ -1,29 +1,28 @@
+// src/App.js
 import React from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Container, Box } from "@mui/material";
-import theme from "./theme";
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
 import Overview from "./components/Overview";
+import Amenities from "./components/Amenities";
+import Contact from "./components/Contact";
+import { Container } from "@mui/material";
+import Faqs from "./components/Faqs";
 import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Box sx={{ backgroundColor: "rgba(5, 5, 5, 0.93)" }}>
-          <Navbar />
-          <Banner />
-          <Box sx={{ my: { xs: 2, md: 4 } }}>
-            <Overview />
-          </Box>
-          <Footer />
-        </Box>
-      </ThemeProvider>
-    </ThemeProvider>
+    <>
+      <Navbar />
+      <Container sx={{ mt: 10, maxWidth:'100% !important' }}>
+        <Banner />
+        <Overview />
+        <Amenities />
+        <Faqs />
+        <Contact />
+      </Container>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;
