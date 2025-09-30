@@ -70,7 +70,7 @@ const Navbar = () => {
                       <ListItemText
                         primary={link}
                         primaryTypographyProps={{
-                          sx: { color: "#212c28", fontWeight: 600 },
+                          sx: { color: "#212c28", fontWeight: 600, },
                         }}
                       />
                     </ListItem>
@@ -85,7 +85,7 @@ const Navbar = () => {
               <Button
                 key={link}
                 href={`#${link.toLowerCase().replace(/\s/g, "-")}`}
-                sx={{ color: "#212c28", fontWeight: 600 }}
+                sx={{ color: "#212c28", fontWeight: 600, whiteSpace:'nowrap' }}
               >
                 {link}
               </Button>

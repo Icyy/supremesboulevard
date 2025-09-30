@@ -13,7 +13,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <Container sx={{ mt: 10, maxWidth:'100% !important' }}>
+      <Container sx={{maxWidth:'100% !important' }}>
         <Banner />
         <Overview />
         <Amenities />

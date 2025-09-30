@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { Image } from "mui-image";
+import heroBG from '../assets/heroBG.jpg'
 
 const Banner = () => (
   <Box
@@ -19,9 +20,9 @@ const Banner = () => (
       <Typography variant="h3" fontWeight="bold" gutterBottom>
         Discover 2, 3 & 4 Bed Urban Resort Residences
       </Typography>
-      <Typography variant="h6" color="text.secondary" gutterBottom>
+      <Typography variant="h7" color="text.secondary" gutterBottom>
         Welcome to a place where families come together, friendships grow, and
-        treasured memories are made.
+        treasured memories are made. 
       </Typography>
       <Typography color="text.secondary">
         This is a community that embraces what truly matters in life, where
@@ -40,11 +41,12 @@ const Banner = () => (
 
     <Box flex={1}>
       <Image
-        src="https://images.squarespace-cdn.com/content/v1/66fd0ccc95b74e6b2cb1c64d/1727859917634-CMKQVETD1IZ20CCJ7L2V/Cover.jpg"
-        height="auto"
+        src={heroBG}
+        height="80vh"
+        width="80vw"
         duration={0}
         style={{
-          borderRadius: 16,
+          // borderRadius: 16,
           border: "1px solid #d9583c30",
           boxShadow: "0px 4px 20px rgba(0,0,0,0.1)",
         }}
