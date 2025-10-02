@@ -5,7 +5,6 @@ import Banner from "./components/Banner";
 import Overview from "./components/Overview";
 import Amenities from "./components/Amenities";
 import Contact from "./components/Contact";
-import { Container } from "@mui/material";
 import Faqs from "./components/Faqs";
 import Footer from "./components/Footer";
 import VideoSection from "./components/VideoSection";
@@ -15,15 +14,13 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <Container sx={{maxWidth:'100% !important' }}>
-        <Banner />
-        <Overview />
-        <Amenities />
-        <VideoSection />
-        <LocationSection />
-        <Faqs />
-        <Contact />
-      </Container>
+      <Banner />
+      <Overview />
+      <Amenities />
+      <VideoSection />
+      <LocationSection />
+      <Faqs />
+      <Contact />
       <Footer />
     </>
   );

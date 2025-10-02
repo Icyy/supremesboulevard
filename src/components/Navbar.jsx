@@ -15,13 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Image } from "mui-image";
 
-const navLinks = [
-  "HOME",
-  "OVERVIEW",
-  "AMENITIES",
-  "LOCATION",
-  "ENQUIRE NOW",
-];
+const navLinks = ["HOME", "OVERVIEW", "AMENITIES", "LOCATION", "ENQUIRE NOW"];
 
 const Navbar = () => {
   const theme = useTheme();
@@ -35,7 +29,13 @@ const Navbar = () => {
   return (
     <AppBar
       position="sticky"
-      sx={{ bgcolor: "#5d7345", color: "#212c28", boxShadow: 1 }}
+      sx={{
+        bgcolor: "rgba(35, 54, 46, 0.25)", // semi-transparent background
+        color: "#fff",
+        boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+        backdropFilter: "blur(10px)", // glassy/frosted effect
+        WebkitBackdropFilter: "blur(10px)",
+      }}
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Image
@@ -57,8 +57,16 @@ const Navbar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
-              <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+            <Drawer
+              anchor="right"
+              open={drawerOpen}
+              onClose={toggleDrawer(false)}
+            >
+              <Box
+                sx={{ width: 250 }}
+                role="presentation"
+                onClick={toggleDrawer(false)}
+              >
                 <List>
                   {navLinks.map((link) => (
                     <ListItem
@@ -70,7 +78,7 @@ const Navbar = () => {
                       <ListItemText
                         primary={link}
                         primaryTypographyProps={{
-                          sx: { color: "#212c28", fontWeight: 600, },
+                          sx: { color: "#23362e", fontWeight: 600 },
                         }}
                       />
                     </ListItem>
@@ -85,7 +93,12 @@ const Navbar = () => {
               <Button
                 key={link}
                 href={`#${link.toLowerCase().replace(/\s/g, "-")}`}
-                sx={{ color: "#212c28", fontWeight: 600, whiteSpace:'nowrap' }}
+                sx={{
+                  color: "#fff",
+                  fontWeight: 600,
+                  whiteSpace: "nowrap",
+                  "&:hover": { color: "#e15e3f" },
+                }}
               >
                 {link}
               </Button>
