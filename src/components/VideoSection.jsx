@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Grid, IconButton, useTheme, useMediaQuery, Dialog } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  IconButton,
+  useTheme,
+  useMediaQuery,
+  Dialog,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
+
+// Yet Another React Lightbox
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 import interiorVideo from "../assets/video1.mp4";
 
 // Dynamically import all interior images
 const importAll = (r) => r.keys().map(r);
-const galleryImages = importAll(require.context("../assets", false, /interior\d+\.jpg$/));
+const galleryImages = importAll(
+  require.context("../assets", false, /interior\d+\.jpg$/)
+).map((src) => ({ src }));
 
 const VideoSection = () => {
   const [openVideo, setOpenVideo] = useState(false);
-  const [openGalleryModal, setOpenGalleryModal] = useState(false); // only thumbnails
-  const [openLightbox, setOpenLightbox] = useState(false); // full image
+  const [openGalleryModal, setOpenGalleryModal] = useState(false); // thumbnails
+  const [openLightbox, setOpenLightbox] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
   const theme = useTheme();
@@ -170,7 +183,7 @@ const VideoSection = () => {
               <Grid item xs={6} sm={4} md={3} key={idx}>
                 <Box
                   component="img"
-                  src={img}
+                  src={img.src}
                   alt={`Gallery ${idx + 1}`}
                   onClick={() => handleThumbnailClick(idx)}
                   sx={{
@@ -194,19 +207,11 @@ const VideoSection = () => {
       {/* Lightbox */}
       {openLightbox && (
         <Lightbox
-          mainSrc={galleryImages[photoIndex]}
-          nextSrc={galleryImages[(photoIndex + 1) % galleryImages.length]}
-          prevSrc={galleryImages[(photoIndex + galleryImages.length - 1) % galleryImages.length]}
-          onCloseRequest={() => setOpenLightbox(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + galleryImages.length - 1) % galleryImages.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % galleryImages.length)
-          }
-          animationDuration={500}
-          enableZoom={true}
-          reactModalStyle={{ overlay: { zIndex: 1400 } }}
+          open={openLightbox}
+          index={photoIndex}
+          close={() => setOpenLightbox(false)}
+          slides={galleryImages}
+          plugins={[]}
         />
       )}
     </Box>
