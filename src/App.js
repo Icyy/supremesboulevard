@@ -8,6 +8,8 @@ import Contact from "./components/Contact";
 import { Container } from "@mui/material";
 import Faqs from "./components/Faqs";
 import Footer from "./components/Footer";
+import VideoSection from "./components/VideoSection";
+import LocationSection from "./components/LocationSection";
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
         <Banner />
         <Overview />
         <Amenities />
+        <VideoSection />
+        <LocationSection />
         <Faqs />
         <Contact />
       </Container>

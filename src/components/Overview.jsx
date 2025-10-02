@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Grid, Divider } from "@mui/material";
+import { Box, Typography, Grid, Divider, useTheme, useMediaQuery } from "@mui/material";
 import {
   Home as HomeIcon,
   LocationOn as LocationOnIcon,
@@ -7,153 +7,136 @@ import {
   Pool as PoolIcon,
   LocalParking as LocalParkingIcon,
   FitnessCenter as FitnessCenterIcon,
-  Spa as SpaIcon,
 } from "@mui/icons-material";
+import overviewVideo from "../assets/video2.mp4";
+
 
 const Overview = () => {
-  const topFeatures = [
-    {
-      icon: <HomeIcon fontSize="large" color="primary" />,
-      title: "Spacious Homes",
-      subtitle: "Modern layouts designed for comfort",
-    },
-    {
-      icon: <LocationOnIcon fontSize="large" color="primary" />,
-      title: "Prime Location",
-      subtitle: "Excellent connectivity to city hubs",
-    },
-    {
-      icon: <BusinessIcon fontSize="large" color="primary" />,
-      title: "Premium Lifestyle",
-      subtitle: "Luxury amenities for families & professionals",
-    },
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+
+  const topIcons = [
+    { icon: <HomeIcon fontSize="large" sx={{ color: "white" }} />, title: "Modern Homes", subtitle: "Spacious & well-designed" },
+    { icon: <LocationOnIcon fontSize="large" sx={{ color: "white" }} />, title: "Prime Location", subtitle: "Connectivity at its best" },
+    { icon: <BusinessIcon fontSize="large" sx={{ color: "white" }} />, title: "Premium Lifestyle", subtitle: "Luxury amenities" },
   ];
 
-  const amenities = [
-    {
-      icon: <PoolIcon fontSize="large" color="primary" />,
-      title: "Swimming Pool",
-      subtitle: "Relax and rejuvenate every day",
-    },
-    {
-      icon: <LocalParkingIcon fontSize="large" color="primary" />,
-      title: "Ample Parking",
-      subtitle: "Safe & secure vehicle spaces",
-    },
-    {
-      icon: <FitnessCenterIcon fontSize="large" color="primary" />,
-      title: "Fitness Center",
-      subtitle: "State-of-the-art gym facilities",
-    },
-    {
-      icon: <SpaIcon fontSize="large" color="primary" />,
-      title: "Wellness Spa",
-      subtitle: "Holistic living experience",
-    },
-    {
-      icon: <BusinessIcon fontSize="large" color="primary" />,
-      title: "Clubhouse",
-      subtitle: "Community events & recreation",
-    },
+  const bottomIcons = [
+    { icon: <PoolIcon fontSize="large" />, title: "Swimming Pool" },
+    { icon: <LocalParkingIcon fontSize="large" />, title: "Parking" },
+    { icon: <FitnessCenterIcon fontSize="large" />, title: "Gym" },
+    { icon: <BusinessIcon fontSize="large" />, title: "Clubhouse" },
+    { icon: <LocationOnIcon fontSize="large" />, title: "Green Spaces" },
   ];
-
-  // Reusable divider style
-  const StyledDivider = () => (
-    <Divider
-      sx={{
-        my: { xs: 6, md: 10 },
-        borderColor: "rgba(0,0,0,0.1)",
-        borderWidth: "1.5px",
-        width: "80%",
-        mx: "auto",
-      }}
-    />
-  );
 
   return (
     <Box
       id="overview"
       sx={{
-        minHeight: "70vh",
-        py: { xs: 5, md: 10 },
+        position: "relative",
         px: { xs: 2, md: 8 },
-        bgcolor:'#e4e2d3'
+        py: { xs: 8, md: 12 },
+        color: "white",
+        overflow: "hidden",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      {/* First Row: Heading + Top 3 Features */}
-      <Grid container spacing={6} alignItems="center">
-        {/* Left side heading */}
-        <Grid item xs={12} md={4}>
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            color="text.default"
-            sx={{ mb: { xs: 3, md: 0 } }}
-          >
-            Project Overview
-          </Typography>
-        </Grid>
+      {/* Background Video */}
+      <Box
+        component="video"
+        src={overviewVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
+          opacity: 0.5, // reduce opacity
+        }}
+      />
 
-        {/* Right side icons */}
-        <Grid item xs={12} md={8}>
-          <Grid container spacing={4} justifyContent="space-between">
-            {topFeatures.map((feature, index) => (
-              <Grid item xs={12} sm={4} key={index}>
-                <Box sx={{ textAlign: "center" }}>
-                  <Box sx={{ mb: 1 }}>{feature.icon}</Box>
-                  <Typography variant="h6" color="text.default" fontWeight="600">
-                    {feature.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {feature.subtitle}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
+      {/* Gradient Overlay */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3))",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Content container above video + overlay */}
+      <Box sx={{ position: "relative", zIndex: 2, width: "100%" }}>
+        {/* Top Row: Heading + Icons */}
+        <Grid container spacing={4} alignItems="center">
+          <Grid item xs={12} md={4}>
+            <Typography variant={isSmall ? "h4" : "h3"} fontWeight="bold">
+              Project Overview
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Grid container spacing={4} justifyContent={isSmall ? "center" : "flex-start"}>
+              {topIcons.map((feat, idx) => (
+                <Grid item xs={12} sm={4} key={idx}>
+                  <Box sx={{ textAlign: "center" }}>
+                    <Box sx={{ mb: 1 }}>{feat.icon}</Box>
+                    <Typography variant="h6" fontWeight={600}>{feat.title}</Typography>
+                    <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.8)" }}>
+                      {feat.subtitle}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
 
-      <StyledDivider />
+        {/* Divider */}
+        <Box sx={{ mt: { xs: 6, md: 8 }, mb: { xs: 4, md: 6 } }}>
+          <Divider sx={{ borderColor: "rgba(255,255,255,0.4)", borderWidth: "1.5px" }} />
+        </Box>
 
-      {/* Second Row: Two column texts */}
-      <Grid container spacing={6} alignItems="flex-start">
-        <Grid item xs={12} md={6}>
-          <Typography variant="h5" fontWeight="600" color="text.default" gutterBottom>
-            Welcome to Supreme Boulevard.
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="body1" color="text.secondary">
-            For the first time in Chembur, experience the exclusivity of
-            resort-life comforts meticulously crafted to elevate your everyday
-            living.
-          </Typography>
-        </Grid>
-      </Grid>
-
-      <StyledDivider />
-
-      {/* Third Row: Amenities / Features */}
-      <Grid container spacing={4} justifyContent="space-between">
-        {amenities.map((amenity, index) => (
-          <Grid item xs={6} sm={4} md={2.4} key={index}>
-            <Box sx={{ textAlign: "center" }}>
-              <Box sx={{ mb: 1 }}>{amenity.icon}</Box>
-              <Typography variant="subtitle1" fontWeight="600" color="text.default">
-                {amenity.title}
-              </Typography>
-              <Typography
-                variant="caption"
-                display="block"
-                color="text.secondary"
-              >
-                {amenity.subtitle}
-              </Typography>
-            </Box>
+        {/* Two columns texts */}
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h5" fontWeight={600}>
+              Welcome to Supreme Boulevard.
+            </Typography>
           </Grid>
-        ))}
-      </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant="body1" sx={{ color: "rgba(255,255,255,0.9)" }}>
+              For the first time in Chembur, experience the exclusivity of resort-life comforts meticulously crafted to elevate your everyday living.
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* Another Divider */}
+        <Box sx={{ mt: { xs: 6, md: 8 }, mb: { xs: 4, md: 6 } }}>
+          <Divider sx={{ borderColor: "rgba(255,255,255,0.4)", borderWidth: "1.5px" }} />
+        </Box>
+
+        {/* Bottom icons row */}
+        <Grid container spacing={4} justifyContent="center">
+          {bottomIcons.map((b, idx) => (
+            <Grid item xs={6} sm={4} md={2} key={idx}>
+              <Box sx={{ textAlign: "center", color: "white" }}>
+                <Box sx={{ mb: 1 }}>{b.icon}</Box>
+                <Typography variant="subtitle1" fontWeight={600}>
+                  {b.title}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Box>
   );
 };
