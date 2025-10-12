@@ -74,7 +74,7 @@ const LocationSection = () => {
   const [activeCategory, setActiveCategory] = useState(null);
 
   return (
-    <Box sx={{ position: "relative", width: "100%", height: "100vh" }}>
+    <Box id="location" sx={{ position: "relative", width: "100%", height: "100vh" }}>
       {/* Static Map */}
       <Box
         component="img"
@@ -105,7 +105,7 @@ const LocationSection = () => {
         <Typography
           variant="h6"
           fontWeight="bold"
-          sx={{ mb: 2, fontSize: { xs: 18, md: 20 }, color: "#020202ff", }}
+          sx={{ mb: 2, fontWeight:'bold', fontSize: { xs: 24, md: 30 }, color: "#23362e", }}
         >
           Nearby Locations
         </Typography>
@@ -119,7 +119,7 @@ const LocationSection = () => {
             }
           >
             <CustomAccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography fontWeight="bold" sx={{ color: "#e15e3f",fontSize: { xs: 15, md: 16 } }}>
+              <Typography fontWeight="bold" sx={{ color: "white",fontSize: { xs: 15, md: 16 } }}>
                 {cat.title}
               </Typography>
             </CustomAccordionSummary>

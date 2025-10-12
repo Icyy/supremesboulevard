@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Container,
-  Tabs,
-  Tab,
-  Grid,
-  Fade,
-} from "@mui/material";
+import { Box, Typography, Container, Tabs, Tab, Grid } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
 
 import fp1 from "../assets/4bhk.jpg";
 import fp2 from "../assets/grand4bhk.jpg";
@@ -24,6 +17,12 @@ const tabData = [
   { label: "Smart 3 BHK", sub: "(Wing B)", area: 580, img: fp5 },
   { label: "2 BHK", sub: "(Wing B)", area: 520, img: fp6 },
 ];
+
+const fadeSlide = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.4 } },
+};
 
 const Amenities = () => {
   const [value, setValue] = useState(0);
@@ -70,7 +69,7 @@ const Amenities = () => {
             color: "#000",
           },
           "& .MuiTabs-indicator": {
-            backgroundColor: "#df8b26", // your brand orange
+            backgroundColor: "#d9583c",
             height: 3,
           },
         }}
@@ -80,7 +79,9 @@ const Amenities = () => {
             key={index}
             label={
               <Box sx={{ textAlign: "center" }}>
-                <Typography color="white" fontWeight={600}>{tab.label}</Typography>
+                <Typography color="white" fontWeight={600}>
+                  {tab.label}
+                </Typography>
                 <Typography variant="caption" color="text.secondary">
                   {tab.sub}
                 </Typography>
@@ -94,26 +95,36 @@ const Amenities = () => {
       <Grid container spacing={8} alignItems="center">
         {/* Left: Floor Plan Image */}
         <Grid item xs={12} md={6}>
-          <Fade in timeout={600}>
-            <Box
-              component="img"
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={tabData[value].img} // Animate on change
               src={tabData[value].img}
               alt={tabData[value].label}
-              sx={{
+              variants={fadeSlide}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              style={{
                 width: "100%",
                 objectFit: "contain",
                 border: "1px solid rgba(0,0,0,0.08)",
                 boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                borderRadius: 8,
               }}
             />
-          </Fade>
+          </AnimatePresence>
         </Grid>
 
         {/* Right: Area Info */}
         <Grid item xs={12} md={6}>
-          <Fade in timeout={800}>
-            <Box
-              sx={{
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tabData[value].area} // Animate on change
+              variants={fadeSlide}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              style={{
                 width: 320,
                 height: 320,
                 background:
@@ -126,17 +137,18 @@ const Amenities = () => {
                 flexDirection: "column",
                 color: "#2f2f2f",
                 fontWeight: "bold",
-                mx: "auto",
+                margin: "0 auto",
+                borderRadius: 8,
               }}
             >
-              <Typography variant="h3" fontWeight="700">
+              <Typography variant="h3" fontWeight={700}>
                 {tabData[value].area}
               </Typography>
-              <Typography variant="subtitle1" fontWeight="600">
+              <Typography variant="subtitle1" fontWeight={600}>
                 Sqft
               </Typography>
-            </Box>
-          </Fade>
+            </motion.div>
+          </AnimatePresence>
         </Grid>
       </Grid>
     </Container>

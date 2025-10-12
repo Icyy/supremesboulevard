@@ -14,13 +14,15 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Image } from "mui-image";
+import EnquiryModal from "./EnquiryModal";
 
-const navLinks = ["HOME", "OVERVIEW", "AMENITIES", "LOCATION", "ENQUIRE NOW"];
+const navLinks = ["HOME", "OVERVIEW", "AMENITIES", "LOCATION"];
 
-const Navbar = () => {
+const Navbar = ({ onOpenEnquiry }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -103,6 +105,16 @@ const Navbar = () => {
                 {link}
               </Button>
             ))}
+            <Button
+              onClick={onOpenEnquiry}
+              href={`#enquiry`}
+              sx={{
+                color: "#fff",
+                fontWeight: 600,
+                whiteSpace: "nowrap",
+                "&:hover": { color: "#e15e3f" },
+              }}
+            >Enquire</Button>
           </Box>
         )}
       </Toolbar>

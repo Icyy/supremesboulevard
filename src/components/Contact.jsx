@@ -3,49 +3,48 @@ import { Box, Button, TextField, Typography, Modal } from "@mui/material";
 
 const Contact = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-    const formData = {
-      name,
-      email,
-      phone,
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("https://formspree.io/f/xovejdwz", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
 
-    try {
-      const response = await fetch("https://formspree.io/f/xovejdwz", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        alert("Form submitted successfully! We'll get in touch soon.");
-        setName("");
-        setEmail("");
-        setPhone("");
-        setModalOpen(false);
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Error submitting form. Please try again later.");
+    if (response.ok) {
+      alert("Thanks for reaching out! We’ll get back to you shortly.");
+      setForm({ name: "", email: "", phone: "" });
+      setModalOpen(false);
+    } else {
+      alert("There was a problem submitting the form. Please try again.");
     }
   };
 
   return (
-    <Box sx={{ textAlign: "center", mt: 5, mb:10 }}>
-      <Typography variant="h4" gutterBottom>
-        Contact Us
+    <Box sx={{ textAlign: "center", py: 8, bgcolor: "#f4eee3" }}>
+      <Typography variant="h4" color="black" fontWeight={700} gutterBottom>
+        Get in Touch
       </Typography>
-      <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}>
+      <Typography variant="body1" color="grey" sx={{ mb: 3 }}>
+        Have questions? Schedule a site visit or request more details.
+      </Typography>
+      <Button
+        variant="contained"
+        onClick={() => setModalOpen(true)}
+        sx={{
+          bgcolor: "#df8b26",
+          color: "white",
+          background: "linear-gradient(135deg, #d9583c, #b23c28)",
+          "&:hover": {
+            background: "linear-gradient(135deg, #b23c28, #8a2c1e)",
+          },
+        }}
+      >
         Enquire Now
       </Button>
 
@@ -58,41 +57,51 @@ const Contact = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
+            width: { xs: 320, sm: 400 },
             bgcolor: "background.paper",
-            border: "2px solid #000",
             boxShadow: 24,
+            borderRadius: 2,
             p: 4,
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
           }}
         >
-          <Typography variant="h6">Enter Your Details</Typography>
+          <Typography variant="h6" color="black" fontWeight={600} mb={2}>
+            Enter Your Details
+          </Typography>
           <TextField
-            required
+            fullWidth
             label="Name"
-            fullWidth
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            required
+            value={form.name}
+            onChange={handleChange}
+            margin="dense"
           />
           <TextField
-            required
+            fullWidth
             label="Email"
+            name="email"
             type="email"
-            fullWidth
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            required
+            value={form.email}
+            onChange={handleChange}
+            margin="dense"
           />
           <TextField
-            required
-            label="Phone"
-            type="tel"
             fullWidth
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            label="Phone"
+            name="phone"
+            type="tel"
+            required
+            value={form.phone}
+            onChange={handleChange}
+            margin="dense"
           />
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2, bgcolor: "#23362e", color: "#fff" }}
+          >
             Submit
           </Button>
         </Box>
