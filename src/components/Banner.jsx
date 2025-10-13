@@ -101,7 +101,14 @@ const Banner = ({ onOpenEnquiry }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        style={{ flex: 1, zIndex: 1 }}
+        style={{
+          flex: 1,
+          zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: isSmall ? "center" : "flex-start",
+          textAlign: isSmall ? "center" : "left",
+        }}
       >
         <motion.div variants={fadeUp}>
           <Typography
@@ -110,7 +117,7 @@ const Banner = ({ onOpenEnquiry }) => {
             sx={{
               lineHeight: 1.2,
               mb: 2,
-              textAlign: isSmall ? "center" : "left",
+              maxWidth: 600,
             }}
           >
             Discover <br /> 2, 3 & 4 Bed Urban Resort Residences
@@ -122,10 +129,8 @@ const Banner = ({ onOpenEnquiry }) => {
             variant={isSmall ? "body2" : "h6"}
             sx={{
               color: "#d0d5cf",
-              maxWidth: "550px",
+              maxWidth: 550,
               mb: 3,
-              textAlign: isSmall ? "center" : "left",
-              mx: isSmall ? "auto" : 0,
             }}
           >
             Welcome to a place where families come together, friendships grow,
@@ -138,10 +143,8 @@ const Banner = ({ onOpenEnquiry }) => {
             variant={isSmall ? "body2" : "body1"}
             sx={{
               color: "#b0b9b3",
-              maxWidth: "550px",
+              maxWidth: 550,
               mb: 4,
-              textAlign: isSmall ? "center" : "left",
-              mx: isSmall ? "auto" : 0,
             }}
           >
             This is a community that embraces what truly matters in life, where
@@ -150,13 +153,7 @@ const Banner = ({ onOpenEnquiry }) => {
           </Typography>
         </motion.div>
 
-        <motion.div
-          variants={fadeUp}
-          sx={{
-            display: "flex",
-            justifyContent: isSmall ? "center" : "flex-start",
-          }}
-        >
+        <motion.div variants={fadeUp}>
           <Button
             variant="contained"
             onClick={onOpenEnquiry}

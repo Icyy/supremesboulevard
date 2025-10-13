@@ -10,7 +10,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-// ✅ Helper function for Google Ads conversion
+//  Helper function for Google Ads conversion
 const trackGoogleConversion = () => {
   if (window.gtag) {
     window.gtag("event", "conversion", {
@@ -21,7 +21,7 @@ const trackGoogleConversion = () => {
   }
 };
 
-// ✅ Helper function to download brochure
+//  Helper function to download brochure
 const downloadBrochure = () => {
   const link = document.createElement("a");
   link.href = "/brochure.pdf";
@@ -51,7 +51,7 @@ const EnquiryModal = ({ open, onClose, onSuccess }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // ✅ Phone number validation: only allow digits
+    //  Phone number validation: only allow digits
     if (name === "phone") {
       const numericValue = value.replace(/\D/g, ""); // remove non-digits
       setForm({ ...form, [name]: numericValue });
@@ -75,10 +75,10 @@ const EnquiryModal = ({ open, onClose, onSuccess }) => {
         setSubmitted(true);
         setForm({ name: "", phone: "", message: "" });
 
-        // 🔹 Track Google Ads conversion
+        //  Track Google Ads conversion
         trackGoogleConversion();
 
-        // ✅ Trigger brochure download if passed
+        //  Trigger brochure download if passed
         if (onSuccess) {
           onSuccess(); // this will trigger download from CTABar
         } else {

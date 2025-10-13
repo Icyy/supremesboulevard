@@ -9,6 +9,13 @@ import fp4 from "../assets/lux3bhk.jpg";
 import fp5 from "../assets/smart3BHK.jpg";
 import fp6 from "../assets/2bhk.jpg";
 
+import socialZone from "../assets/socialZone.jpg";
+import indZone from "../assets/indulgenceZone.jpg";
+import gym from "../assets/fa2.jpg";
+import swimming from "../assets/fa4.jpg";
+import fitnessZone from "../assets/fitnessZone.jpg";
+import wellbeingZone from "../assets/wellBeingZone.jpg";
+
 const tabData = [
   { label: "Signature 4 BHK", sub: "(Wing A)", area: 758, img: fp1 },
   { label: "Grande 4 BHK", sub: "(Wing A)", area: 820, img: fp2 },
@@ -23,6 +30,15 @@ const fadeSlide = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   exit: { opacity: 0, y: -20, transition: { duration: 0.4 } },
 };
+
+const amenitiesList = [
+  { title: "Social Zone", img: socialZone },
+  { title: "Indulgence Zone", img: indZone },
+  { title: "State-of-the-Art Gym", img: gym },
+  { title: "Swimming Zone", img: swimming },
+  { title: "Fitness Zone", img: fitnessZone },
+  { title: "Well Being Zone", img: wellbeingZone },
+];
 
 const Amenities = () => {
   const [value, setValue] = useState(0);
@@ -49,6 +65,78 @@ const Amenities = () => {
         Over 30+ luxury amenities, indulgence and activity zones, and spaces for
         well-being and social life.
       </Typography>
+
+      {/* Amenities Gallery */}
+      <Box sx={{ mb: 10 }}>
+        <Typography
+          variant="h5"
+          align="center"
+          fontWeight="bold"
+          mb={4}
+          sx={{ color: "#ffffffff" }}
+        >
+          Discover World-Class Amenities
+        </Typography>
+
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "repeat(2, 1fr)",
+              sm: "repeat(3, 1fr)",
+              md: "repeat(6, 1fr)",
+            },
+            gap: 2,
+          }}
+        >
+          {amenitiesList.map((item, index) => (
+            <motion.div
+              key={index}
+              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              style={{
+                borderRadius: 12,
+                overflow: "hidden",
+                position: "relative",
+                cursor: "pointer",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+              }}
+            >
+              <img
+                src={item.img}
+                alt={item.title}
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                  filter: "brightness(0.85)",
+                }}
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 0,
+                  width: "100%",
+                  background:
+                    "linear-gradient(180deg, transparent, rgba(0,0,0,0.7))",
+                  color: "white",
+                  textAlign: "center",
+                  py: 1,
+                  fontWeight: 600,
+                  fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                }}
+              >
+                {item.title}
+              </Box>
+            </motion.div>
+          ))}
+        </Grid>
+      </Box>
 
       {/* Tabs */}
       <Tabs
