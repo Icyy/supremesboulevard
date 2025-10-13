@@ -23,7 +23,7 @@ const App = () => {
     <>
       <Navbar onOpenEnquiry={handleOpenEnquiry} />
       <CTABar />
-      <Container sx={{ maxWidth: "100% !important" }}>
+      <Container disableGutters sx={{ maxWidth: "100% !important" }}>
         <FadeUpSection>
           <Banner onOpenEnquiry={handleOpenEnquiry} />
         </FadeUpSection>

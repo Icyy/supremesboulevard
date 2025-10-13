@@ -31,8 +31,8 @@ const Navbar = ({ onOpenEnquiry }) => {
       position="sticky"
       sx={{
         bgcolor: isMobile
-          ? "rgba(255, 255, 255, 0.07)" // lighter glass effect on mobile
-          : "#23362e", // dark solid color for desktop
+          ? "rgba(255, 255, 255, 0.09)" // lighter glass effect on mobile
+          : "#23362e10", // dark solid color for desktop
         color: "#fff",
         boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
         backdropFilter: isMobile ? "blur(12px)" : "none",

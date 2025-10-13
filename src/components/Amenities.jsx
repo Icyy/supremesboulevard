@@ -68,16 +68,6 @@ const Amenities = () => {
 
       {/* Amenities Gallery */}
       <Box sx={{ mb: 10 }}>
-        <Typography
-          variant="h5"
-          align="center"
-          fontWeight="bold"
-          mb={4}
-          sx={{ color: "#ffffffff" }}
-        >
-          Discover World-Class Amenities
-        </Typography>
-
         <Grid
           container
           spacing={2}
