@@ -105,7 +105,7 @@ const LocationSection = () => {
         <Typography
           variant="h6"
           fontWeight="bold"
-          sx={{ mb: 2, fontWeight:'bold', fontSize: { xs: 24, md: 30 }, color: "#23362e", }}
+          sx={{ mb: 2, fontWeight:'bold', fontSize: { xs: 30, md: 35 }, color: "#172922ff", }}
         >
           Nearby Locations
         </Typography>

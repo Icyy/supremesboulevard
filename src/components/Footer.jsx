@@ -21,11 +21,25 @@ const Footer = () => {
         width={96}
         fit="contain"
         duration={0}
-        style={{ margin: "auto", marginBottom: 20, }}
+        style={{ margin: "auto", marginBottom: 20 }}
       />
       <Typography variant="body2" sx={{ opacity: 0.6 }}>
         Maha RERA No: A51900004566 | Supreme Boulevard Chembur | All rights
         reserved 2025
+      </Typography>
+      <Typography variant="body2" sx={{ opacity: 0.6, marginTop:'2vh' }}>
+        Disclaimer: All images, visuals, perspectives, illustrations, models,
+        specifications, plans, designs, drawings, dimensions, maps, facilities,
+        amenities, features, and other information/details herein are
+        conceptual, indicative and for representation purposes only and are not
+        to scale, and is subject to the approval of the respective authorities.
+        The Promoters/Developers/Architect reserve the right to add, alter,
+        delete or replace any of these in the interest of development without
+        any notice or obligation. This printed material does not constitute an
+        offer or contract between the Promoters / Developers and the recipient.
+        All transactions in this development shall be subject to and governed by
+        the terms & conditions of the Agreement for Sale to be entered into
+        between the parties.
       </Typography>
     </Box>
   );

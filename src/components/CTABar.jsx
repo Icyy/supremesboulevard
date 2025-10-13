@@ -3,14 +3,26 @@ import { Box, Button, useMediaQuery, useTheme } from "@mui/material";
 import EnquiryModal from "./EnquiryModal";
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const PHONE_NUMBER = "+919920039449";
-const EMAIL = "omestates11@gmail.com";
+const EMAIL = "realtors1505@gmail.com";
 
 const CTABar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
+  const [downloadAfterSubmit, setDownloadAfterSubmit] = useState(false);
+
+  // Function to trigger brochure download
+  const triggerDownload = () => {
+    const link = document.createElement("a");
+    link.href = "/brochure.pdf";
+    link.download = "brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <>
@@ -28,7 +40,7 @@ const CTABar = () => {
             boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
             borderBottom: "1px solid rgba(0,0,0,0.1)",
             position: "sticky",
-            top: 64, // adjusts based on navbar height
+            top: 64,
             zIndex: 1000,
           }}
         >
@@ -37,17 +49,14 @@ const CTABar = () => {
               variant="contained"
               href={`tel:${PHONE_NUMBER}`}
               sx={{
-                bgcolor: "#df8b26",
+                background: "linear-gradient(135deg, #d9583c, #b23c28)",
+                "&:hover": { background: "linear-gradient(135deg, #b23c28, #8a2c1e)" },
                 color: "white",
                 px: 3,
                 fontWeight: 600,
-                background: "linear-gradient(135deg, #d9583c, #b23c28)",
-                "&:hover": {
-                  background: "linear-gradient(135deg, #b23c28, #8a2c1e)",
-                },
               }}
             >
-               <CallIcon sx={{marginRight:'0.5vw'}}></CallIcon> Call Now
+              <CallIcon sx={{ mr: 1 }} /> Call Now
             </Button>
 
             <Button
@@ -55,27 +64,44 @@ const CTABar = () => {
               href={`mailto:${EMAIL}`}
               sx={{
                 borderColor: "#d9583c",
-                color: "#ffffffff",
+                color: "#fff",
                 px: 3,
                 fontWeight: 600,
                 "&:hover": { borderColor: "#c67520", color: "#000" },
               }}
             >
-              <EmailIcon sx={{marginRight:'0.5vw'}}/> Email Us
+              <EmailIcon sx={{ mr: 1 }} /> Email Us
             </Button>
 
             <Button
               variant="contained"
               onClick={() => setOpen(true)}
               sx={{
-                bgcolor: "#23362e",
+                background: "#23362e",
                 color: "white",
                 px: 3,
                 fontWeight: 600,
-                "&:hover": { bgcolor: "#1b2c25" },
+                "&:hover": { background: "#1b2c25" },
               }}
             >
               🏡 Enquire / Schedule Free Visit
+            </Button>
+
+            {/* Download Brochure */}
+            <Button
+              variant="outlined"
+              onClick={() => { setOpen(true); setDownloadAfterSubmit(true); }}
+              sx={{
+                borderColor: "#d9583c",
+                color: "#fff",
+                px: 3,
+                fontWeight: 600,
+                display: "flex",
+                alignItems: "center",
+                "&:hover": { borderColor: "#c67520", color: "#000" },
+              }}
+            >
+              <DownloadIcon sx={{ mr: 1 }} /> Download Brochure
             </Button>
           </Box>
         </Box>
@@ -105,9 +131,7 @@ const CTABar = () => {
             href={`tel:${PHONE_NUMBER}`}
             sx={{
               background: "linear-gradient(135deg, #d9583c, #b23c28)",
-              "&:hover": {
-                background: "linear-gradient(135deg, #b23c28, #8a2c1e)",
-              },
+              "&:hover": { background: "linear-gradient(135deg, #b23c28, #8a2c1e)" },
               color: "white",
               px: 2,
             }}
@@ -128,18 +152,42 @@ const CTABar = () => {
             onClick={() => setOpen(true)}
             sx={{
               background: "linear-gradient(135deg, #d9583c, #b23c28)",
-              "&:hover": {
-                background: "linear-gradient(135deg, #b23c28, #8a2c1e)",
-              },
+              "&:hover": { background: "linear-gradient(135deg, #b23c28, #8a2c1e)" },
               px: 2,
             }}
           >
             Enquire
           </Button>
+
+          {/* Mobile Download Button */}
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => { setOpen(true); setDownloadAfterSubmit(true); }}
+            sx={{
+              borderColor: "#fff",
+              color: "#fff",
+              px: 2,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <DownloadIcon sx={{ mr: 0.5 }} />
+          </Button>
         </Box>
       )}
 
-      <EnquiryModal open={open} onClose={() => setOpen(false)} />
+      {/* Enquiry Modal */}
+      <EnquiryModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSuccess={() => {
+          if (downloadAfterSubmit) {
+            triggerDownload();
+            setDownloadAfterSubmit(false);
+          }
+        }}
+      />
     </>
   );
 };

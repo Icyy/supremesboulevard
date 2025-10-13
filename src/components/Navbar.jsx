@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Image } from "mui-image";
-import EnquiryModal from "./EnquiryModal";
 
 const navLinks = ["HOME", "OVERVIEW", "AMENITIES", "LOCATION"];
 
@@ -22,7 +21,6 @@ const Navbar = ({ onOpenEnquiry }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -32,11 +30,13 @@ const Navbar = ({ onOpenEnquiry }) => {
     <AppBar
       position="sticky"
       sx={{
-        bgcolor: "rgba(35, 54, 46, 0.25)", // semi-transparent background
+        bgcolor: isMobile
+          ? "rgba(255, 255, 255, 0.07)" // lighter glass effect on mobile
+          : "#23362e", // dark solid color for desktop
         color: "#fff",
         boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
-        backdropFilter: "blur(10px)", // glassy/frosted effect
-        WebkitBackdropFilter: "blur(10px)",
+        backdropFilter: isMobile ? "blur(12px)" : "none",
+        WebkitBackdropFilter: isMobile ? "blur(12px)" : "none",
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -63,6 +63,13 @@ const Navbar = ({ onOpenEnquiry }) => {
               anchor="right"
               open={drawerOpen}
               onClose={toggleDrawer(false)}
+              PaperProps={{
+                sx: {
+                  bgcolor: "rgba(255, 255, 255, 0.25)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                },
+              }}
             >
               <Box
                 sx={{ width: 250 }}
@@ -80,7 +87,7 @@ const Navbar = ({ onOpenEnquiry }) => {
                       <ListItemText
                         primary={link}
                         primaryTypographyProps={{
-                          sx: { color: "#23362e", fontWeight: 600 },
+                          sx: { color: "white", fontWeight: 600 },
                         }}
                       />
                     </ListItem>
@@ -114,7 +121,9 @@ const Navbar = ({ onOpenEnquiry }) => {
                 whiteSpace: "nowrap",
                 "&:hover": { color: "#e15e3f" },
               }}
-            >Enquire</Button>
+            >
+              Enquire
+            </Button>
           </Box>
         )}
       </Toolbar>
