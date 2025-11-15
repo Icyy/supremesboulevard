@@ -17,6 +17,7 @@ export default async function handler(req, res) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.SHEET_ID,
+      range: `${process.env.SHEET_NAME}!A1`,
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [[name, phone, email, new Date().toLocaleString()]],
