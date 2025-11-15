@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, phone, email } = req.body;
+    const { name, phone, state, message } = req.body;
 
     const auth = new google.auth.GoogleAuth({
       credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON),
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       range:`Sheet2!A1`,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[name, phone, email, new Date().toLocaleString()]],
+        values: [[new Date().toLocaleString(),name, phone, state,message]],
       },
     });
 
