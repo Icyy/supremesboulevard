@@ -183,16 +183,25 @@ const EnquiryModal = ({ open, onClose, onSuccess }) => {
     const isValid = validate();
     if (!isValid) {
       console.log("Validation failed");
-      return; // Stop submission
+      return;
     }
 
     setLoading(true);
 
     try {
-      const response = await fetch("https://formspree.io/f/xovejdwz", {
+      const payload = {
+        name: form.name,
+        phone: form.phone,
+        state: form.state,
+        message: form.message || "",
+        timestamp: new Date().toLocaleString("en-IN"),
+      };
+
+      // Call Vercel serverless API
+      const response = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
@@ -200,19 +209,22 @@ const EnquiryModal = ({ open, onClose, onSuccess }) => {
         setForm({ name: "", phone: "", state: "", message: "" });
 
         trackGoogleConversion();
-
         if (onSuccess) onSuccess();
         else downloadBrochure();
       } else {
-        alert("Error submitting the form. Try again.");
+        const err = await response.json().catch(() => ({}));
+        console.error("Backend error:", err);
+        alert("Unable to submit. Please try again later.");
       }
     } catch (err) {
-      alert("Network error, please try again.");
+      console.error("Frontend API error:", err);
+      alert("Network error — please try again.");
     } finally {
       setLoading(false);
     }
   };
 
+  
   const handleCallClick = () => {
     trackGoogleConversion();
     window.location.href = "tel:+919920039449";
