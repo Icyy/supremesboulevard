@@ -57,7 +57,7 @@ const Contact = () => {
         sx={{
           bgcolor: "#df8b26",
           color: "white",
-          background: "linear-gradient(135deg, #d9583c, #b23c28)",
+          background: "linear-gradient(135deg, #CC5500, #b23c28)",
           px: 4,
           py: 1.2,
           "&:hover": {

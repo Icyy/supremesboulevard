@@ -163,7 +163,7 @@ const Banner = ({ onOpenEnquiry }) => {
               fontSize: isSmall ? "1rem" : "1.2rem",
               fontWeight: 600,
               boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-              background: "linear-gradient(135deg, #d9583c, #b23c28)",
+              background: "linear-gradient(135deg, #CC5500, #b23c28)",
               transition: "transform 0.3s ease",
               "&:hover": {
                 transform: "scale(1.03)",

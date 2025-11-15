@@ -78,7 +78,7 @@ const Faqs = () => {
       id="faq"
       sx={{
         py: 10,
-        backgroundColor: "#212c28",
+        backgroundColor: "#0a361e",
         borderTop: "1px solid #e6ded2",
       }}
     >

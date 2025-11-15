@@ -33,7 +33,7 @@ const CTABar = () => {
             width: "100%",
             py: 1.5,
             px: 4,
-            background: "rgba(233, 209, 180, 0.11)",
+            background: "rgba(233, 209, 180, 0.75)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -49,8 +49,8 @@ const CTABar = () => {
               variant="contained"
               href={`tel:${PHONE_NUMBER}`}
               sx={{
-                background: "linear-gradient(135deg, #d9583c, #b23c28)",
-                "&:hover": { background: "linear-gradient(135deg, #b23c28, #8a2c1e)" },
+                background: "linear-gradient(135deg, #CC5500, #b23c28)",
+                "&:hover": { background: "linear-gradient(135deg, #c5442eff, #b63a27ff)" },
                 color: "white",
                 px: 3,
                 fontWeight: 600,
@@ -63,8 +63,8 @@ const CTABar = () => {
               variant="outlined"
               href={`mailto:${EMAIL}`}
               sx={{
-                borderColor: "#d9583c",
-                color: "#fff",
+                borderColor: "#CC5500",
+                color: "#CC5500",
                 px: 3,
                 fontWeight: 600,
                 "&:hover": { borderColor: "#c67520", color: "#000" },
@@ -77,7 +77,7 @@ const CTABar = () => {
               variant="contained"
               onClick={() => setOpen(true)}
               sx={{
-                background: "#23362e",
+                background: "#2C5F34",
                 color: "white",
                 px: 3,
                 fontWeight: 600,
@@ -93,7 +93,7 @@ const CTABar = () => {
               onClick={() => { setOpen(true); setDownloadAfterSubmit(true); }}
               sx={{
                 borderColor: "#d9583c",
-                color: "#fff",
+                color: "#CC5500",
                 px: 3,
                 fontWeight: 600,
                 display: "flex",

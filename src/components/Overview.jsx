@@ -229,7 +229,7 @@ const Overview = ({ onOpenEnquiry }) => {
             variant="contained"
             onClick={onOpenEnquiry}
             sx={{
-              background: "linear-gradient(135deg, #d9583c, #b23c28)",
+              background: "linear-gradient(135deg, #CC5500, #b23c28)",
               "&:hover": {
                 background: "linear-gradient(135deg, #b23c28, #8a2c1e)",
               },
